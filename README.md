@@ -42,6 +42,16 @@ My favorite stack spans cloud, containers, programming, and infrastructure autom
 
 </div>
 
+## 🧪 Projects, experiments & open source
+
+Take a look through my [public repositories](https://github.com/dil-mezzy?tab=repositories) and see what catches your eye.
+
+<div align="center">
+
+<a href="https://github.com/dil-mezzy?tab=repositories"><img src="assets/project-mascots.gif" alt="Original animated lineup of colorful tech mascots waving above pulsing decorative bars. Click to browse my repositories." width="100%" /></a>
+
+</div>
+
 ## 🤝 Connect with me
 
 Have something cool to share? I'd love to connect.
