@@ -23,7 +23,9 @@ My favorite stack spans cloud, containers, programming, and infrastructure autom
 
 <div align="center">
 
-<img src="https://skillicons.dev/icons?i=aws,kubernetes,openshift,ts,py,terraform,ansible,linux&perline=8" alt="AWS, Kubernetes, OpenShift, TypeScript, Python, Terraform, Ansible, and Linux" />
+<img src="https://skillicons.dev/icons?i=aws,kubernetes,openshift,ts,py,terraform,ansible,linux,github,vscode,nodejs,redhat&perline=6" alt="AWS, Kubernetes, OpenShift, TypeScript, Python, Terraform, Ansible, Linux, GitHub, VS Code, Node.js, and Red Hat" />
+
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code/overview)
 
 **Infrastructure as Code · Cloud · SRE · Automation**
 
