@@ -1,10 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="420" height="130" viewBox="0 0 420 130" role="img" aria-labelledby="title desc">
-  <title id="title">Language chart awaiting configuration</title>
-  <desc id="desc">Selected repository language statistics will appear after the workflow is configured and run.</desc>
-  <rect x="1" y="1" width="418" height="128" rx="14" fill="#171b32" stroke="#424c70"/>
-  <g font-family="system-ui, sans-serif">
-    <text x="22" y="34" fill="#a9b8ff" font-size="18" font-weight="600">Languages in selected repositories</text>
-    <text x="22" y="68" fill="#dce4ff" font-size="13">Chart setup in progress.</text>
-    <text x="22" y="96" fill="#a6accd" font-size="12">No private repository data published yet.</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="116" viewBox="0 0 420 116" role="img" aria-labelledby="title desc">
+<title id="title">Languages across selected repositories</title>
+<desc id="desc">Share of detected code bytes, including selected private repositories. Not a measure of proficiency or personal contribution.</desc>
+<rect x="1" y="1" width="418" height="114" rx="14" fill="#171b32" stroke="#424c70"/>
+<g font-family="system-ui, sans-serif">
+<text x="22" y="32" fill="#a9b8ff" font-size="18" font-weight="600">Languages in selected repositories</text>
+<text x="22" y="54" fill="#a6accd" font-size="11">Public + private · share of detected code bytes</text>
+<circle cx="27" cy="81" r="5" fill="#77e4d2"/>
+<text x="41" y="85" fill="#dce4ff" font-size="13">Python</text>
+<text x="397" y="85" fill="#a6accd" font-size="13" text-anchor="end">100.0%</text>
+</g></svg>
