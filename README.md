@@ -23,7 +23,7 @@ My favorite stack spans cloud, containers, programming, and infrastructure autom
 
 <div align="center">
 
-<img src="https://skillicons.dev/icons?i=aws,kubernetes,openshift,ts,py,terraform,ansible&perline=7" alt="AWS, Kubernetes, OpenShift, TypeScript, Python, Terraform, and Ansible" />
+<img src="https://skillicons.dev/icons?i=aws,kubernetes,openshift,ts,py,terraform,ansible,linux&perline=8" alt="AWS, Kubernetes, OpenShift, TypeScript, Python, Terraform, Ansible, and Linux" />
 
 **Infrastructure as Code · Cloud · SRE · Automation**
 
