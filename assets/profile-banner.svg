@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" fill="none">
+  <defs>
+    <linearGradient id="background" x1="30" y1="20" x2="1140" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10172A"/>
+      <stop offset=".55" stop-color="#171B3A"/>
+      <stop offset="1" stop-color="#25205A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="150" y1="95" x2="850" y2="290" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#77E4D2"/>
+      <stop offset=".52" stop-color="#8EA7FF"/>
+      <stop offset="1" stop-color="#D6A0FF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 244 -460 0 1030 24)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7655E8" stop-opacity=".36"/>
+      <stop offset="1" stop-color="#7655E8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" stroke="#C9D0FF" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="url(#background)"/>
+  <rect width="1200" height="360" rx="28" fill="url(#glow)"/>
+  <rect width="1200" height="360" rx="28" fill="url(#grid)"/>
+  <circle cx="1030" cy="184" r="128" stroke="url(#accent)" stroke-opacity=".24" stroke-width="1.5"/>
+  <circle cx="1030" cy="184" r="94" stroke="url(#accent)" stroke-opacity=".32" stroke-width="1.5"/>
+  <circle cx="1030" cy="184" r="60" fill="#171B3A" fill-opacity=".72" stroke="url(#accent)" stroke-opacity=".7" stroke-width="1.5"/>
+  <path d="m1018 162-22 22 22 22M1042 162l22 22-22 22" stroke="url(#accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+  <path d="M900 184h34m192 0h34M1030 54v34m0 192v34" stroke="url(#accent)" stroke-opacity=".65" stroke-width="1.5"/>
+  <circle cx="900" cy="184" r="3" fill="#77E4D2"/>
+  <circle cx="1160" cy="184" r="3" fill="#D6A0FF"/>
+  <circle cx="1030" cy="54" r="3" fill="#8EA7FF"/>
+  <circle cx="1030" cy="314" r="3" fill="#77E4D2"/>
+  <rect x="76" y="82" width="8" height="196" rx="4" fill="url(#accent)"/>
+  <text x="112" y="152" fill="#F4F5FF" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="54" font-weight="700" letter-spacing="-1.5">Hey, I'm Moiz Ezzy</text>
+  <text x="114" y="204" fill="#C5CBE7" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="23" letter-spacing=".4">Working at Diligent · Building a little corner of the internet</text>
+  <text x="114" y="258" fill="url(#accent)" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="20" font-weight="600" letter-spacing="1.3">NO CODE IS THE BEST CODE.</text>
+</svg>
