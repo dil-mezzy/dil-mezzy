@@ -1,0 +1,38 @@
+name: Update language chart
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-language-chart
+  cancel-in-progress: false
+
+jobs:
+  languages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Test chart generator
+        run: python3 -m unittest discover -s scripts -v
+      - name: Generate aggregate chart
+        env:
+          LANGUAGES_TOKEN: ${{ secrets.LANGUAGES_TOKEN }}
+          LANGUAGES_REPOS: ${{ secrets.LANGUAGES_REPOS }}
+        run: python3 scripts/languages.py
+      - name: Publish chart if changed
+        run: |
+          git add assets/languages.svg
+          if git diff --cached --quiet; then
+            echo "Language chart is unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update aggregate language chart"
+          git push
