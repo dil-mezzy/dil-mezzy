@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import re
@@ -93,7 +94,17 @@ def main():
         raise ValueError("Add the LANGUAGES_TOKEN Actions secret before running this workflow.")
     names = repositories(os.environ.get("LANGUAGES_REPOS", ""))
     chart = render(aggregate(names, token))
+    version = hashlib.sha256(chart.encode("utf-8")).hexdigest()[:12]
+    readme = Path("README.md")
+    updated_readme, replacements = re.subn(
+        r'src="assets/languages\.svg(?:\?v=[a-f0-9]+)?"',
+        f'src="assets/languages.svg?v={version}"',
+        readme.read_text(encoding="utf-8"),
+    )
+    if replacements != 1:
+        raise ValueError("Expected exactly one language chart image in README.md.")
     Path("assets/languages.svg").write_text(chart, encoding="utf-8")
+    readme.write_text(updated_readme, encoding="utf-8")
     print(f"Fetched language metadata from {len(names)} selected repositories.")
     print("Updated aggregate language chart. Repository names and raw responses were not published.")
 

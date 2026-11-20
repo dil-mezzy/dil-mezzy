@@ -1,10 +1,12 @@
 import io
+import tempfile
 import unittest
 import xml.etree.ElementTree as ET
+from pathlib import Path
 from unittest.mock import patch
 from urllib.error import HTTPError
 
-from languages import aggregate, render, repositories
+from languages import aggregate, main, render, repositories
 
 
 class LanguagesTests(unittest.TestCase):
@@ -48,6 +50,25 @@ class LanguagesTests(unittest.TestCase):
         with patch("languages.urlopen", return_value=io.BytesIO(b"{}")):
             with self.assertRaisesRegex(ValueError, "no detected language data"):
                 aggregate(["owner/empty"], "test-token")
+
+    def test_chart_link_changes_only_when_chart_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "assets").mkdir()
+            readme = root / "README.md"
+            readme.write_text('<img src="assets/languages.svg" alt="Languages" />', encoding="utf-8")
+            with patch("languages.Path", side_effect=lambda path: root / path), patch.dict(
+                "os.environ", {"LANGUAGES_TOKEN": "test-token", "LANGUAGES_REPOS": "owner/repo"}
+            ), patch("languages.aggregate", return_value={"Python": 100}) as fetch:
+                main()
+                first = readme.read_text(encoding="utf-8")
+                self.assertIn("assets/languages.svg?v=", first)
+                main()
+                self.assertEqual(readme.read_text(encoding="utf-8"), first)
+                fetch.return_value = {"Python": 50, "TypeScript": 50}
+                main()
+                self.assertNotEqual(readme.read_text(encoding="utf-8"), first)
+                ET.parse(root / "assets/languages.svg")
 
 
 if __name__ == "__main__":

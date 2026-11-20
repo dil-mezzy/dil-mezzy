@@ -27,7 +27,7 @@ jobs:
         run: python3 scripts/languages.py
       - name: Publish chart if changed
         run: |
-          git add assets/languages.svg
+          git add assets/languages.svg README.md
           if git diff --cached --quiet; then
             echo "Language chart is unchanged."
             exit 0
