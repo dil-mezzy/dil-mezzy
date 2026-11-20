@@ -36,7 +36,7 @@ My favorite stack spans cloud, containers, programming, and infrastructure autom
 <div align="center">
 
 <a href="https://github.com/dil-mezzy?tab=repositories"><img height="165" src="https://github-readme-stats.vercel.app/api?username=dil-mezzy&show_icons=true&theme=tokyonight&hide_border=true&rank_icon=github" alt="Moiz's GitHub statistics" /></a>
-<img src="assets/languages.svg" width="420" alt="Languages across selected repositories" />
+<img src="assets/languages.svg?v=7f4a94297fa6" width="420" alt="Languages across selected repositories" />
 
 <img src="https://streak-stats.demolab.com?user=dil-mezzy&theme=tokyonight&hide_border=true" alt="Moiz's GitHub contribution streak" />
 
