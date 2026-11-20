@@ -94,6 +94,7 @@ def main():
     names = repositories(os.environ.get("LANGUAGES_REPOS", ""))
     chart = render(aggregate(names, token))
     Path("assets/languages.svg").write_text(chart, encoding="utf-8")
+    print(f"Fetched language metadata from {len(names)} selected repositories.")
     print("Updated aggregate language chart. Repository names and raw responses were not published.")
 
 
