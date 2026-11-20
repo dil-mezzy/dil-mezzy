@@ -2,11 +2,13 @@ import io
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
+from collections import Counter
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 from urllib.error import HTTPError
 
-from languages import aggregate, main, render, repositories
+from languages import aggregate, main, personal_contributions, render, render_stats, repositories
 
 
 class LanguagesTests(unittest.TestCase):
@@ -56,19 +58,99 @@ class LanguagesTests(unittest.TestCase):
             root = Path(directory)
             (root / "assets").mkdir()
             readme = root / "README.md"
-            readme.write_text('<img src="assets/languages.svg" alt="Languages" />', encoding="utf-8")
+            readme.write_text(
+                '<img src="assets/languages.svg" alt="Languages" />'
+                '<img src="assets/repository-stats.svg" alt="Stats" />',
+                encoding="utf-8",
+            )
             with patch("languages.Path", side_effect=lambda path: root / path), patch.dict(
                 "os.environ", {"LANGUAGES_TOKEN": "test-token", "LANGUAGES_REPOS": "owner/repo"}
-            ), patch("languages.aggregate", return_value={"Python": 100}) as fetch:
+            ), patch("languages.personal_contributions", return_value=Counter(commits=3)), patch(
+                "languages.aggregate", return_value={"Python": 100}
+            ) as fetch:
                 main()
                 first = readme.read_text(encoding="utf-8")
                 self.assertIn("assets/languages.svg?v=", first)
+                self.assertIn("assets/repository-stats.svg?v=", first)
                 main()
                 self.assertEqual(readme.read_text(encoding="utf-8"), first)
                 fetch.return_value = {"Python": 50, "TypeScript": 50}
                 main()
                 self.assertNotEqual(readme.read_text(encoding="utf-8"), first)
                 ET.parse(root / "assets/languages.svg")
+                ET.parse(root / "assets/repository-stats.svg")
+
+    def test_personal_stats_include_public_and_selected_private_without_duplicates(self):
+        def group(name, private, count, commits=False):
+            contributions = (
+                {"nodes": [{"commitCount": count}], "pageInfo": {"hasNextPage": False}}
+                if commits else {"totalCount": count}
+            )
+            return {
+                "repository": {"nameWithOwner": name, "isPrivate": private},
+                "contributions": contributions,
+            }
+
+        collection = {
+            "commits": [
+                group("owner/public", False, 3, commits=True),
+                group("owner/private", True, 5, commits=True),
+                group("owner/excluded", True, 100, commits=True),
+            ],
+            "prs": [group("owner/private", True, 2)],
+            "issues": [group("owner/public", False, 1)],
+            "reviews": [group("owner/other-public", False, 4)],
+        }
+        result = {"data": {
+            "viewer": {"login": "dil-mezzy"},
+            "user": {"contributionsCollection": collection},
+        }}
+        with patch("languages.github_api", return_value=result) as api:
+            stats = personal_contributions(
+                ["owner/public", "owner/private"], "test-token",
+                now=datetime(2026, 11, 20, 12, tzinfo=timezone.utc),
+            )
+        calls = api.call_args_list
+        windows = len(calls)
+        self.assertEqual(stats["commits"], 8 * windows)
+        self.assertEqual(stats["prs"], 2 * windows)
+        self.assertEqual(stats["selected"], 11 * windows)
+        self.assertEqual(stats["reviews"], 4 * windows)
+        previous_end = None
+        for call in calls:
+            variables = call.args[2]["variables"]
+            start = datetime.fromisoformat(variables["from"])
+            end = datetime.fromisoformat(variables["to"])
+            self.assertLess(end - start, timedelta(days=28))
+            if previous_end is not None:
+                self.assertEqual(start, previous_end + timedelta(seconds=1))
+            previous_end = end
+        chart = render_stats(stats)
+        ET.fromstring(chart)
+        self.assertNotIn("owner/", chart)
+        self.assertIn("personal contributions", chart)
+
+    def test_private_contribution_errors_fail_instead_of_publishing_partial_totals(self):
+        with patch("languages.github_api", return_value={
+            "errors": [{"message": "Access denied to private/repository"}],
+        }):
+            with self.assertRaisesRegex(ValueError, "partial results will not be published") as caught:
+                personal_contributions(["private/repository"], "test-token")
+        self.assertNotIn("private/repository", str(caught.exception))
+
+    def test_commit_connection_is_not_silently_truncated(self):
+        result = {"data": {
+            "viewer": {"login": "dil-mezzy"},
+            "user": {"contributionsCollection": {
+                "commits": [{
+                    "repository": {"nameWithOwner": "owner/private", "isPrivate": True},
+                    "contributions": {"pageInfo": {"hasNextPage": True}, "nodes": []},
+                }],
+            }},
+        }}
+        with patch("languages.github_api", return_value=result):
+            with self.assertRaisesRegex(ValueError, "pagination limit"):
+                personal_contributions(["owner/private"], "test-token")
 
 
 if __name__ == "__main__":

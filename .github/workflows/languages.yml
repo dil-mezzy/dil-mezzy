@@ -20,19 +20,19 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Test chart generator
         run: python3 -m unittest discover -s scripts -v
-      - name: Generate aggregate chart
+      - name: Generate aggregate charts
         env:
           LANGUAGES_TOKEN: ${{ secrets.LANGUAGES_TOKEN }}
           LANGUAGES_REPOS: ${{ secrets.LANGUAGES_REPOS }}
         run: python3 scripts/languages.py
-      - name: Publish chart if changed
+      - name: Publish charts if changed
         run: |
-          git add assets/languages.svg README.md
+          git add assets/languages.svg assets/repository-stats.svg README.md
           if git diff --cached --quiet; then
-            echo "Language chart is unchanged."
+            echo "Repository charts are unchanged."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update aggregate language chart"
+          git commit -m "Update aggregate repository charts"
           git push

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="130" viewBox="0 0 420 130" role="img" aria-labelledby="title">
+  <title id="title">Personal contribution statistics update in progress</title>
+  <rect x="1" y="1" width="418" height="128" rx="14" fill="#171b32" stroke="#424c70"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="22" y="34" fill="#a9b8ff" font-size="18" font-weight="600">Moiz Ezzy: personal contributions</text>
+    <text x="22" y="72" fill="#dce4ff" font-size="13">Personal contribution chart setup in progress.</text>
+  </g>
+</svg>
