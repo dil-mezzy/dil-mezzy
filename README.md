@@ -36,7 +36,7 @@ My favorite stack spans cloud, containers, programming, and infrastructure autom
 <div align="center">
 
 <img src="assets/repository-stats.svg?v=b67faaac57aa" width="420" alt="Moiz Ezzy's personal contributions, including public and selected private repositories" />
-<img src="assets/languages.svg?v=c512f7fe12bd" width="420" alt="Languages across selected repositories" />
+<img src="assets/languages.svg?v=628285435c15" width="420" alt="Languages across selected repositories" />
 
 <img src="https://streak-stats.demolab.com?user=dil-mezzy&theme=tokyonight&hide_border=true" alt="Moiz's GitHub contribution streak" />
 
